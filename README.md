@@ -1,2 +1,14 @@
-# ribo_seq_DEA
-DE analysis of ribo-seq datasets
+## Step 1: Install ribo_seq_DEA workflow
+
+### 1. Clone repository
+```shell
+$ git clone https://github.com/andreagomezlab/ribo_seq_DEA.git
+$ cd ribo_seq_DEA/
+```
+
+### 2. Create and activate the conda environment
+```shell
+$ cd env/
+$ conda env create --name envname --file=rnaseq_env.yml 
+$ conda activate rnaseq_env
+```

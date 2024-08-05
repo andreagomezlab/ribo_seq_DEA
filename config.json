@@ -5,7 +5,7 @@
     "output_dir": "/media/data01/mabraao/Code/ribo_seq_rMATS/data/test_data",
         
     "genome_gtf": "/media/data01/mabraao/Code/ribo_seq_rMATS/genome/GCF_000001635.27/genomic.gtf",
-    "star_index": "/media/data01/mabraao/Code/ribo_seq_rMATS/star_index",
+    "bowtie_index": "",
     "rMATs_environment": "base",
     "nthread": 10
 }
