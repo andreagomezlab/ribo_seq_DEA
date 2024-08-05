@@ -4,10 +4,12 @@
     "metadata": "metadata.csv",   
     "output_dir": "/media/data01/mabraao/Code/ribo_seq_rMATS/data/test_data",
         
-    "genome_gtf": "/media/data01/mabraao/Code/ribo_seq_rMATS/genome/GCF_000001635.27/genomic.gtf",
-    "bowtie_index": "",
-    "rMATs_environment": "base",
-    "nthread": 10
+    "ref_title": "GRCm39",
+    "genome_gtf": "/media/data01/common/ReferenceDB/GRCm39/ncbi/ncbi_dataset/ncbi_dataset/data/GCF_000001635.27/genomic.gtf",
+    "genome_fasta": "/media/data01/common/ReferenceDB/GRCm39/ncbi/ncbi_dataset/ncbi_dataset/data/GCF_000001635.27/GCF_000001635.27_GRCm39_genomic.fna",
+    "nthread": 20,
+    "aligner": "bowtie2"    
+
 }
 
 
