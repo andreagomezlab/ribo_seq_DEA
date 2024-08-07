@@ -7,9 +7,11 @@
     "ref_title": "GRCm39",
     "genome_gtf": "/media/data01/common/ReferenceDB/GRCm39/ncbi/ncbi_dataset/ncbi_dataset/data/GCF_000001635.27/genomic.gtf",
     "genome_fasta": "/media/data01/common/ReferenceDB/GRCm39/ncbi/ncbi_dataset/ncbi_dataset/data/GCF_000001635.27/GCF_000001635.27_GRCm39_genomic.fna",
+    "genome_bed": "/media/data01/common/ReferenceDB/GRCm39/Annotations/GRCm39_GENCODE_VM27_refseq.bed",
     "nthread": 20,
-    "aligner": "bowtie2"    
+    "aligner": "bowtie2",
 
+    "rseqc_path": "/apps/RSeQC/build/lib/rseqc/modules"
 }
 
 

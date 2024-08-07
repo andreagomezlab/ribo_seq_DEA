@@ -98,3 +98,31 @@ rule rsem2bam:
             rm {input.bam}
             rm {prefix}.genome.bam            
         """
+
+run RSeQC:
+    input:
+        bam=config['output_dir']+'/rsem/{sample}.sorted.bam'
+    output:
+        config['output_dir']+'/RSeQC/{sample}'   
+    params:
+        gtf=config['genome_gtf'] 
+        path=config['rseqc_path']
+    log:
+        config['output_dir']+'/RSeQC/{sample}.log'
+    shell:
+        r"""
+            {params.path}/bam_stat.py -i {input.bam} > {output}.bam_stat.txt
+            
+        """
+
+run generate_matrix_genes:
+    input:
+        rsem_files = RSEM
+    output:
+        config['output_dir']+'/rsem/genes.results'
+    params:
+        outdir = config['output_dir']+'/rsem/'
+    shell:
+        r"""
+            rsem-generate-data-matrix {params.outdir} > {output}
+        """
