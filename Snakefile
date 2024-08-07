@@ -51,27 +51,46 @@ rule rsem_prepare_reference:
         fasta=config['genome_fasta'],
         gtf=config['genome_gtf']
     params:
-        nthread = config['nthread']
+        nthread = config['nthread'],
+        outdir = config['output_dir']+'/rsem_index/',
+        index_prefix = config['output_dir']+'/rsem_index/rsem_bowtie_index_'+config['ref_title']
     output:
-        directory(config['output_dir']+'/rsem_bowtie_index_'+config['ref_title'])
+        directory(config['output_dir']+'/rsem_index/')        
     shell:
         r"""
-            mkdir -p {params.tmp}; 
-            rsem-prepare-reference -p {params.nthread} --gtf {input.gtf} {input.fasta} {output}
+            mkdir -p {params.outdir};             
+            rsem-prepare-reference -p {params.nthread} --bowtie2 --gtf {input.gtf} {input.fasta} {params.index_prefix}
+            
         """
 
 rule rsem_calculate_expression:
     input:
         R1=config['output_dir']+'/trimmed/{sample}_R1_001_val_1.fq.gz',
-        R2=config['output_dir']+'/trimmed/{sample}_R2_001_val_2.fq.gz',
-        index = directory(config['output_dir']+'/rsem_bowtie_index_'+config['ref_title'])
+        R2=config['output_dir']+'/trimmed/{sample}_R2_001_val_2.fq.gz',        
+        index=config['output_dir']+'/rsem_index/'
     output:
-        config['output_dir']+'/rsem/{sample}.genes.results'
+        config['output_dir']+'/rsem/{sample}.genes.results'    
     params:
-        nthread = config['nthread']
+        nthread = config['nthread'],
+        prefix = config['output_dir']+'/rsem/{sample}',
+        index = config['output_dir']+'/rsem_index/rsem_bowtie_index_'+config['ref_title']
     shell:
         r"""
-            rsem-calculate-expression --bowtie2 --num-threads {params.nthread} --paired-end {input.R1} {input.R2} {input.index} {output}
+            rsem-calculate-expression --bowtie2 --num-threads {params.nthread} --paired-end {input.R1} {input.R2} {params.index} {params.prefix}
         """
 
 
+rule rsem2bam:
+    input:        
+        bam=config['output_dir']+'/rsem/{sample}.transcript.bam'        
+    output:
+        config['output_dir']+'/rsem/{sample}.genome.bam'
+    params:
+        index = config['output_dir']+'/rsem_index/rsem_bowtie_index_'+config['ref_title']
+    shell:
+        r"""
+            rsem-tbam2gbam {params.index} {input.bam} {output}            
+            samtools sort {output}
+            samtools index {output}
+            rm {input.bam}
+        """
