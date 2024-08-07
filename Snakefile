@@ -86,14 +86,15 @@ rule rsem2bam:
     input:        
         bam=config['output_dir']+'/rsem/{sample}.transcript.bam'        
     output:
-        config['output_dir']+'/rsem/{sample}.genome.bam'
+        config['output_dir']+'/rsem/{sample}.sorted.bam'
     params:
+        prefix = config['output_dir']+'/rsem/{sample}',
         index = config['output_dir']+'/rsem_index/rsem_bowtie_index_'+config['ref_title']
     shell:
         r"""
-            rsem-tbam2gbam {params.index} {input.bam} {output}            
+            rsem-tbam2gbam {params.index} {input.bam} {prefix}.genome.bam            
             samtools sort {output} -o {output}.sorted.bam
             samtools index {output}.sorted.bam
             rm {input.bam}
-            rm {output}            
+            rm {prefix}.genome.bam            
         """
