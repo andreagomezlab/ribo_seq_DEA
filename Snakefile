@@ -7,12 +7,14 @@ QC_FILES=expand(config['output_dir']+"/qc/{sample}_R1_001_fastqc.html", sample=S
 TRIMMED_FQ=expand(config['output_dir']+'/trimmed/{sample}_R1_001_val_1.fq.gz',sample=SAMPLES)
 TRIMMED_FQ.append(expand(config['output_dir']+'/trimmed/{sample}_R2_001_val_2.fq.gz',sample=SAMPLES))
 RSEM = expand(config['output_dir']+'/rsem/{sample}.genes.results', sample=SAMPLES)
+BAMS = expand(config['output_dir']+'/rsem/{sample}.genome.bam', sample=SAMPLES)
 
 rule all:
     input:
         QC_FILES,
         TRIMMED_FQ,        
-        RSEM
+        RSEM,
+        BAMS
 
 
 rule perform_fastqc:
@@ -90,7 +92,8 @@ rule rsem2bam:
     shell:
         r"""
             rsem-tbam2gbam {params.index} {input.bam} {output}            
-            samtools sort {output}
-            samtools index {output}
+            samtools sort {output} -o {output}.sorted.bam
+            samtools index {output}.sorted.bam
             rm {input.bam}
+            rm {output}            
         """
