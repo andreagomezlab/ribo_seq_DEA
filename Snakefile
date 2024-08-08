@@ -6,15 +6,21 @@ configfile:
 QC_FILES=expand(config['output_dir']+"/qc/{sample}_R1_001_fastqc.html", sample=SAMPLES)
 TRIMMED_FQ=expand(config['output_dir']+'/trimmed/{sample}_R1_001_val_1.fq.gz',sample=SAMPLES)
 TRIMMED_FQ.append(expand(config['output_dir']+'/trimmed/{sample}_R2_001_val_2.fq.gz',sample=SAMPLES))
-RSEM = expand(config['output_dir']+'/rsem/{sample}.genes.results', sample=SAMPLES)
+RSEM_GENES = expand(config['output_dir']+'/rsem/{sample}.genes.results', sample=SAMPLES)
+RSEM_ISOFORMS = expand(config['output_dir']+'/rsem/{sample}.isoforms.results', sample=SAMPLES)
 BAMS = expand(config['output_dir']+'/rsem/{sample}.genome.bam', sample=SAMPLES)
+COUNTS_G = config['output_dir']+'/rsem/'+config['project_title']+'.genes.results'
+COUNTS_I = config['output_dir']+'/rsem/'+config['project_title']+'.isoforms.results'
 
 rule all:
     input:
         QC_FILES,
         TRIMMED_FQ,        
-        RSEM,
-        BAMS
+        RSEM_GENES,
+        RSEM_ISOFORMS,
+        BAMS,
+        COUNTS_G,
+        COUNTS_I
 
 
 rule perform_fastqc:
@@ -99,13 +105,13 @@ rule rsem2bam:
             rm {prefix}.genome.bam            
         """
 
-run RSeQC:
+rule RSeQC:
     input:
         bam=config['output_dir']+'/rsem/{sample}.sorted.bam'
     output:
         config['output_dir']+'/RSeQC/{sample}'   
     params:
-        gtf=config['genome_gtf'] 
+        gtf=config['genome_gtf'], 
         path=config['rseqc_path']
     log:
         config['output_dir']+'/RSeQC/{sample}.log'
@@ -115,14 +121,22 @@ run RSeQC:
             
         """
 
-run generate_matrix_genes:
+rule generate_matrix_genes:
     input:
-        rsem_files = RSEM
+        rsem_files = RSEM_GENES
     output:
-        config['output_dir']+'/rsem/genes.results'
-    params:
-        outdir = config['output_dir']+'/rsem/'
+        config['output_dir']+'/rsem/'+config['project_title']+'.genes.results'
     shell:
         r"""
-            rsem-generate-data-matrix {params.outdir} > {output}
+            rsem-generate-data-matrix {input} > {output}
+        """
+
+rule generate_matrix_isoforms:
+    input:
+        rsem_files = RSEM_ISOFORMS
+    output:
+        config['output_dir']+'/rsem/'+config['project_title']+'.isoforms.results'
+    shell:
+        r"""
+            rsem-generate-data-matrix {input} > {output}
         """
