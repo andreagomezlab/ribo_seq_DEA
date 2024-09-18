@@ -9,6 +9,7 @@ $ cd ribo_seq_DEA/
 ### 2. Installing Conda
 
 Follow the instructions for installing it on Linux or other systems
+
 https://docs.anaconda.com/miniconda/miniconda-install/
 
 
