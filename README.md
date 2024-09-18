@@ -32,7 +32,8 @@ Configure the workflow if necessary by editing the file <code>config.json</code>
 ## Execute the workflow
 
 ```shell
-$ snakemake -c10 --use-conda
-$ RScripts
+$(rnaseq_env) snakemake -c10 --use-conda
+
+Downstream analysis at RScripts folder
 
 ```
