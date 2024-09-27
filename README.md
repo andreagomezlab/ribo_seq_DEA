@@ -6,17 +6,25 @@ $ git clone https://github.com/andreagomezlab/ribo_seq_DEA.git
 $ cd ribo_seq_DEA/
 ```
 
-### 2. Installing Conda
+### 2. Installing dependencies
 
+# Conda
 Follow the instructions for installing it on Linux or other systems
 
 https://docs.anaconda.com/miniconda/miniconda-install/
 
+* rsem
+* fastqc
+* trim galore
+* samtools
+* bowtie2
+* multiqc
+* snakemake
 
 ### 3. Create and activate the conda environment
 ```shell
 $ cd env/
-$ conda env create --name envname --file=rnaseq_env.yml 
+$ conda env create --name rnaseq_env --file=rnaseq_env.yml 
 $ conda activate rnaseq_env
 ```
 
