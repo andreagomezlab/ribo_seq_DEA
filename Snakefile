@@ -8,7 +8,7 @@ TRIMMED_FQ=expand(config['output_dir']+'/trimmed/{sample}_R1_001_val_1.fq.gz',sa
 TRIMMED_FQ.append(expand(config['output_dir']+'/trimmed/{sample}_R2_001_val_2.fq.gz',sample=SAMPLES))
 RSEM_GENES = expand(config['output_dir']+'/rsem/{sample}.genes.results', sample=SAMPLES)
 RSEM_ISOFORMS = expand(config['output_dir']+'/rsem/{sample}.isoforms.results', sample=SAMPLES)
-BAMS = expand(config['output_dir']+'/rsem/{sample}.genome.bam', sample=SAMPLES)
+BAMS = expand(config['output_dir']+'/rsem/{sample}.sorted.bam', sample=SAMPLES)
 COUNTS_G = config['output_dir']+'/rsem/'+config['project_title']+'.genes.results'
 COUNTS_I = config['output_dir']+'/rsem/'+config['project_title']+'.isoforms.results'
 
@@ -77,7 +77,9 @@ rule rsem_calculate_expression:
         R2=config['output_dir']+'/trimmed/{sample}_R2_001_val_2.fq.gz',        
         index=config['output_dir']+'/rsem_index/'
     output:
-        config['output_dir']+'/rsem/{sample}.genes.results'    
+        config['output_dir']+'/rsem/{sample}.genes.results',    
+        config['output_dir']+'/rsem/{sample}.isoforms.results',
+        config['output_dir']+'/rsem/{sample}.transcript.bam'
     params:
         nthread = config['nthread'],
         prefix = config['output_dir']+'/rsem/{sample}',
@@ -87,22 +89,20 @@ rule rsem_calculate_expression:
             rsem-calculate-expression --bowtie2 --num-threads {params.nthread} --paired-end {input.R1} {input.R2} {params.index} {params.prefix}
         """
 
-
 rule rsem2bam:
     input:        
         bam=config['output_dir']+'/rsem/{sample}.transcript.bam'        
     output:
         config['output_dir']+'/rsem/{sample}.sorted.bam'
-    params:
-        prefix = config['output_dir']+'/rsem/{sample}',
+    params:        
         index = config['output_dir']+'/rsem_index/rsem_bowtie_index_'+config['ref_title']
     shell:
         r"""
-            rsem-tbam2gbam {params.index} {input.bam} {prefix}.genome.bam            
-            samtools sort {output} -o {output}.sorted.bam
+            rsem-tbam2gbam {params.index} {input.bam} {input.bam}.genome.bam
+            samtools sort {input.bam}.genome.bam -o {output}.sorted.bam
             samtools index {output}.sorted.bam
             rm {input.bam}
-            rm {prefix}.genome.bam            
+            rm {input.bam}.genome.bam
         """
 
 rule RSeQC:
