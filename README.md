@@ -8,7 +8,7 @@ $ cd ribo_seq_DEA/
 
 ### 2. Installing dependencies
 
-#### Conda
+### Conda
 Follow the instructions for installing Conda on Linux or other systems
 
 https://docs.anaconda.com/miniconda/miniconda-install/
@@ -44,6 +44,6 @@ Configure the workflow if necessary by editing the file <code>config.json</code>
 ```shell
 $(rnaseq_env) snakemake -c10 --use-conda
 
-Downstream analysis at RScripts folder
-
 ```
+
+## Downstream analysis at RScripts folder
