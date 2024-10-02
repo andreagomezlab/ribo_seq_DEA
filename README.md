@@ -13,6 +13,7 @@ Follow the instructions for installing it on Linux or other systems
 
 https://docs.anaconda.com/miniconda/miniconda-install/
 
+Other dependencies:
 * rsem
 * fastqc
 * trim galore
@@ -26,6 +27,9 @@ https://docs.anaconda.com/miniconda/miniconda-install/
 $ cd env/
 $ conda env create --name rnaseq_env --file=rnaseq_env.yml 
 $ conda activate rnaseq_env
+$(rnaseq_env) pip install --upgrade snakemake
+$(rnaseq_env) snakemake --version
+
 ```
 
 ### 4. Dry run the pipeline workflow
