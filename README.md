@@ -13,15 +13,6 @@ Follow the instructions for installing it on Linux or other systems
 
 https://docs.anaconda.com/miniconda/miniconda-install/
 
-Other dependencies:
-* rsem
-* fastqc
-* trim galore
-* samtools
-* bowtie2
-* multiqc
-* snakemake==7.32.4
-
 ### 3. Create and activate the conda environment
 ```shell
 $ cd env/
@@ -29,6 +20,15 @@ $ conda env create --name rnaseq_env --file=rnaseq_env.yml
 $ conda activate rnaseq_env
 (rnaseq_env)$ pip install --upgrade snakemake
 (rnaseq_env)$ snakemake --version
+
+Check if the following dependencies are included in the conda environment:
+* rsem
+* fastqc
+* trim galore
+* samtools
+* bowtie2
+* multiqc
+* snakemake==7.32.4
 
 ```
 
