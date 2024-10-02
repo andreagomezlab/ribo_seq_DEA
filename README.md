@@ -48,3 +48,6 @@ $(rnaseq_env) snakemake -c10 --use-conda
 ## Downstream analysis
 
 RScripts folder
+``` shell
+edgeR_DEG_analysis_main.R
+```
