@@ -27,8 +27,8 @@ Other dependencies:
 $ cd env/
 $ conda env create --name rnaseq_env --file=rnaseq_env.yml 
 $ conda activate rnaseq_env
-$(rnaseq_env) pip install --upgrade snakemake
-$(rnaseq_env) snakemake --version
+(rnaseq_env)$ pip install --upgrade snakemake
+(rnaseq_env)$ snakemake --version
 
 ```
 
