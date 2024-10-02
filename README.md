@@ -40,7 +40,7 @@ Configure the workflow if necessary by editing the file <code>config.json</code>
 ## Execute the workflow
 
 ```shell
-$(base) snakemake -c10 --use-conda
+$(rnaseq_env) snakemake -c10 --use-conda
 
 Downstream analysis at RScripts folder
 
