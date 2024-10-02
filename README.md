@@ -19,7 +19,7 @@ https://docs.anaconda.com/miniconda/miniconda-install/
 * samtools
 * bowtie2
 * multiqc
-* snakemake
+* snakemake==7.32.4
 
 ### 3. Create and activate the conda environment
 ```shell
