@@ -42,7 +42,7 @@ Configure the workflow if necessary by editing the file <code>config.json</code>
 ## Execute the workflow
 
 ```shell
-$(rnaseq_env) snakemake -c10 --use-conda
+$(rnaseq_env) snakemake -c10 --use-conda --latency-wait 900
 
 ```
 ## Downstream analysis
@@ -50,4 +50,9 @@ $(rnaseq_env) snakemake -c10 --use-conda
 RScripts folder
 ``` shell
 edgeR_DEG_analysis_main.R
+
 ```
+
+## Notes
+
+

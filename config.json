@@ -1,8 +1,8 @@
 {
-    "project_title": "PV_48h_DOI_DEA",
-    "fastq": "/media/data01/mabraao/Code/ribo_seq_rMATS/data/test_data",
+    "project_title": "PV_48h_Psilo_DEA",
+    "fastq": "/media/data01/gomezlab/tmp_bkp/1735-2728-09242024_140206/PV_48h",
     "metadata": "metadata.csv",   
-    "output_dir": "/media/data01/mabraao/Code/ribo_seq_rMATS/data/test_data",
+    "output_dir": "/media/data01/gomezlab/tmp_bkp/1735-2728-09242024_140206/PV_48h/processed",
         
     "ref_title": "GRCm39",
     "genome_gtf": "annotations/GCF_000001635.27/genomic.gtf",

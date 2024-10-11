@@ -4,6 +4,8 @@ configfile:
 (SAMPLES,) = glob_wildcards(config['fastq']+"/{id}_R1_001.fastq.gz")
 
 QC_FILES=expand(config['output_dir']+"/qc/{sample}_R1_001_fastqc.html", sample=SAMPLES)
+MULTIQC = config['output_dir']+'/qc/multiqc_report.html'
+TRIMMED_MULTIQC = config['output_dir']+'/trimmed/multiqc_report.html'
 TRIMMED_FQ=expand(config['output_dir']+'/trimmed/{sample}_R1_001_val_1.fq.gz',sample=SAMPLES)
 TRIMMED_FQ.append(expand(config['output_dir']+'/trimmed/{sample}_R2_001_val_2.fq.gz',sample=SAMPLES))
 RSEM_GENES = expand(config['output_dir']+'/rsem/{sample}.genes.results', sample=SAMPLES)
@@ -15,7 +17,9 @@ COUNTS_I = config['output_dir']+'/rsem/'+config['project_title']+'.isoforms.resu
 rule all:
     input:
         QC_FILES,
-        TRIMMED_FQ,        
+        #MULTIQC,
+        TRIMMED_FQ, 
+        #TRIMMED_MULTIQC,       
         RSEM_GENES,
         RSEM_ISOFORMS,
         BAMS,
@@ -51,8 +55,19 @@ rule perform_trim_galore:
         config['output_dir']+'/trimmed/{sample}_R2_001_val_2.fq.gz'        
     shell:
         r"""
-            trim_galore --paired --phred33 --cores 8 {input.R1} {input.R2} -o {params.out_dir} 
+            trim_galore --paired --phred33 --fastqc --cores 8 {input.R1} {input.R2} -o {params.out_dir} 
         """
+
+rule perform_multiqc:
+    input:
+        expand(config['output_dir']+'/qc/{sample}_R1_001_fastqc.html', sample=SAMPLES),
+        expand(config['output_dir']+'/qc/{sample}_R2_001_fastqc.html', sample=SAMPLES)
+    output:
+        config['output_dir']+'/qc/multiqc_report.html'
+    shell:
+        r'''
+            multiqc -o {config['output_dir']}/qc {input}
+        '''
 
 rule rsem_prepare_reference:
     input:
@@ -99,8 +114,8 @@ rule rsem2bam:
     shell:
         r"""
             rsem-tbam2gbam {params.index} {input.bam} {input.bam}.genome.bam
-            samtools sort {input.bam}.genome.bam -o {output}.sorted.bam
-            samtools index {output}.sorted.bam
+            samtools sort {input.bam}.genome.bam -o {output}
+            samtools index {output}
             rm {input.bam}
             rm {input.bam}.genome.bam
         """
