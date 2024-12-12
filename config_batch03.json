@@ -1,8 +1,8 @@
 {
-    "project_title": "Rbp4_48h_Psilo_DEA",
-    "fastq": "/media/data01/gomezlab/tmp_bkp/1735-2728-09242024_140206/Rbp4_48h",
+    "project_title": "Batch_03_samples",
+    "fastq": "/media/data01/processed/private_data/RNA-Seq/Batch03_merged",
     "metadata": "metadata.csv",   
-    "output_dir": "/media/data01/gomezlab/tmp_bkp/1735-2728-09242024_140206/Rbp4_48h/processed",
+    "output_dir": "/media/data01/processed/private_data/RNA-Seq/Batch03_merged/processed",
         
     "ref_title": "GRCm39",
     "genome_gtf": "annotations/GCF_000001635.27/genomic.gtf",

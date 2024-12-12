@@ -132,8 +132,11 @@ rule RSeQC:
         config['output_dir']+'/RSeQC/{sample}.log'
     shell:
         r"""
-            {params.path}/bam_stat.py -i {input.bam} > {output}.bam_stat.txt
-            
+            mkdir -p {output}
+            {params.path}/geneBody_coverage.py -r {params.gtf} -i {input.bam} -o {output}/geneBody_coverage
+            {params.path}/junction_annotation.py -r {params.gtf} -i {input.bam} -o {output}/junction_annotation
+            {params.path}/read_distribution.py -r {params.gtf} -i {input.bam} -o {output}/read_distribution
+            {params.path}/RPKM_saturation.py -r {params.gtf} -i {input.bam} -o {output}/RPKM_saturation
         """
 
 rule generate_matrix_genes:
