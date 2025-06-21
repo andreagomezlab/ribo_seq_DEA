@@ -1,5 +1,7 @@
 ## System Requirements
 
+To successfully install and run Linux Ubuntu 24.04, your system should have a 2 GHz dual-core processor or better, at least 4 GB of RAM, and a minimum of 25 GB of free hard drive space. The pipeline was tested in a Linux Ubuntu 24.04 AMD Threadripper 3960X 3.8 GHz 24-Core Processor, 256 GB Memory.
+
 ## Instructions to use
 
 ### Step 1: Copy ribo_seq_DEA workflow repository
