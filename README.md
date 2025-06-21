@@ -30,10 +30,11 @@ $ conda activate rnaseq_env
 Check if the following dependencies are included in the conda environment:
 * rsem==v1.3.1
 * fastqc==v0.11.9
-* trim==galore 0.6.7
-* samtools==1.20
+* trimgalore==0.6.7
+* sva version 3.52.0
 * bowtie2==2.4.4
 * multiqc==1.14
+* DESeq2==1.44.0
 * snakemake==7.32.4
 
 #### Dry run the pipeline workflow
