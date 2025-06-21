@@ -26,12 +26,12 @@ $ conda activate rnaseq_env
 (rnaseq_env)$ snakemake --version
 ```
 Check if the following dependencies are included in the conda environment:
-* rsem
-* fastqc
-* trim galore
-* samtools
-* bowtie2
-* multiqc
+* rsem v1.3.1
+* fastqc v0.11.9
+* trim galore 0.6.7
+* samtools 1.20
+* bowtie2 2.4.4
+* multiqc 1.14
 * snakemake==7.32.4
 
 #### Dry run the pipeline workflow
@@ -59,4 +59,13 @@ edgeR_DEG_analysis_main.R
 
 ## Demo
 
+### Expected outputs 
 
+```shell
+$(rnaseq_env) /rsem/sample1.sorted.bam
+.genes.results
+.isoforms.results
+/qc/
+_R1_001_fastqc.html
+_R2_001_fastqc.html
+```
