@@ -1,3 +1,7 @@
+# System Requirements
+
+# Instructions to use
+
 ## Step 1: Copy ribo_seq_DEA workflow repository
 
 ### 1. Clone repository
@@ -53,6 +57,6 @@ edgeR_DEG_analysis_main.R
 
 ```
 
-## Notes
+## Demo
 
 
