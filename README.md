@@ -62,6 +62,8 @@ edgeR_DEG_analysis_main.R
 
 ## Demo
 
+Running time ~4 hours per each sample. The following outputs are expected:
+
 ### Expected outputs 
 
 ```shell
